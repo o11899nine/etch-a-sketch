@@ -14,15 +14,20 @@
 
 .grid {
   border: 2px solid red;
+  background-color: blue;
   height: 500px;
   width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  
 }
 
 .row {
-  background-color: yellow;
   display: flex;
+  gap: 1px;
 }
 
 .square {
-  border: 1px solid black;
+  background-color: yellowgreen;
 }

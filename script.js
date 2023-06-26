@@ -2,7 +2,7 @@ const grid = document.querySelector(".grid");
 const gridWidth = grid.offsetWidth;
 
 function createGrid(size) {
-  const squareSize = gridWidth / size; 
+  const squareSize = (gridWidth / size); 
   for (let i = 0; i < size; i++) {
     const row = document.createElement("div");
     row.classList.add("row");
@@ -19,4 +19,4 @@ function createGrid(size) {
   
 }
 
-createGrid(20);
+createGrid(5);
