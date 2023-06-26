@@ -1,0 +1,28 @@
+:root {
+  font-size: 62.5%;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font: inherit;
+  margin: 0;
+}
+
+.grid {
+  border: 2px solid red;
+  height: 500px;
+  width: 500px;
+}
+
+.row {
+  background-color: yellow;
+  display: flex;
+}
+
+.square {
+  border: 1px solid black;
+}
