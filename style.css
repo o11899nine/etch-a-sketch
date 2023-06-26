@@ -12,7 +12,7 @@
   margin: 0;
 }
 
-.grid {
+/* .grid-container {
   border: 2px solid red;
   background-color: blue;
   height: 500px;
@@ -21,6 +21,23 @@
   flex-direction: column;
   gap: 1px;
   
+} */
+
+.grid-container {
+  height: 300px;
+  width: 300px;
+  display: grid;
+  grid-template: repeat(50, 1fr) / repeat(50, 1fr);
+  background-color: #2196F3;
+
+}
+
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
 }
 
 .row {
