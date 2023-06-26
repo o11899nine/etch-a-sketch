@@ -12,6 +12,9 @@
   margin: 0;
 }
 
+body {
+  background-color: aquamarine;
+}
 /* .grid-container {
   border: 2px solid red;
   background-color: blue;
@@ -24,27 +27,16 @@
 } */
 
 .grid-container {
-  height: 300px;
-  width: 300px;
+  height: 900px;
+  width: 900px;
   display: grid;
-  grid-template: repeat(50, 1fr) / repeat(50, 1fr);
-  background-color: #2196F3;
+  grid-template: repeat(16, 1fr) / repeat(16, 1fr);
+  background-color: rgb(212, 212, 212);
+  gap: 1px;
+  padding: 1px;
 
 }
 
 .grid-item {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  padding: 20px;
-  font-size: 30px;
-  text-align: center;
-}
-
-.row {
-  display: flex;
-  gap: 1px;
-}
-
-.square {
-  background-color: yellowgreen;
+  background-color: white;
 }
