@@ -3,11 +3,13 @@ const eraserBtn = document.querySelector(".eraser-btn");
 const gridContainer = document.querySelector(".grid-container");
 const paintColorPicker = document.querySelector(".paint-color-picker");
 const randomColorBtn = document.querySelector(".random-color-btn");
+const clearBtn = document.querySelector(".clear-btn");
 
 backgroundColorPicker.addEventListener("input", changeBackgroundColor);
 eraserBtn.addEventListener("click", activateEraser);
 paintColorPicker.addEventListener("input", changePaintColor);
 randomColorBtn.addEventListener("click", () => { randomColor = true });
+clearBtn.addEventListener("click", clearCanvas);
 
 let currentBGColor = backgroundColorPicker.value;
 let currentPaintColor = paintColorPicker.value;
@@ -27,7 +29,16 @@ function getRandomHexColor() {
   return `#${hexColor}`;
 }
 
+
 // Main functions
+const allSquares = () => document.querySelectorAll(".square");
+
+function clearCanvas() {
+  allSquares().forEach((square) => {
+      square.style.backgroundColor = currentBGColor;
+  });
+}
+
 function activateEraser() {
   randomColor = false;
   currentPaintColor = currentBGColor;
@@ -40,9 +51,8 @@ function changePaintColor() {
 
 function changeBackgroundColor() {
   const newBGColor = this.value;
-  const squares = document.querySelectorAll(".square");
 
-  squares.forEach((square) => {
+  allSquares().forEach((square) => {
     const squareBGColor = rgbToHex(square.style.backgroundColor);
     if (squareBGColor === currentBGColor) {
       square.style.backgroundColor = newBGColor;
@@ -66,7 +76,7 @@ function paintSquare(event) {
 
 function createGrid(size) {
   gridContainer.style.gridTemplate = `repeat(${size}, 1fr) / repeat(${size}, 1fr)`;
-  
+
   for (let i = 0; i < size * size; i++) {
     const square = document.createElement("div");
     square.classList.add("square");
@@ -77,4 +87,4 @@ function createGrid(size) {
   }
 }
 
-createGrid(16);
+createGrid(20);
