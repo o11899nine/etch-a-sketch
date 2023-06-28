@@ -1,18 +1,31 @@
 const gridContainer = document.querySelector(".grid-container");
-const randomColorBtn = document.querySelector(".random-color-btn")
-const eraserBtn = document.querySelector(".eraser-btn")
+const randomColorBtn = document.querySelector(".random-color-btn");
+const eraserBtn = document.querySelector(".eraser-btn");
+const paintColorPicker = document.querySelector(".paint-color-picker");
+const backgroundColorPicker = document.querySelector(".background-color-picker");
+
+let backgroundColor = backgroundColorPicker.value;
+let paintColor = paintColorPicker.value;
+
+paintColorPicker.addEventListener("input", () => {
+  randomColor = false;
+  paintColor = paintColorPicker.value;
+});
+
+backgroundColorPicker.addEventListener("input", () => {
+  randomColor = false;
+  backgroundColor = backgroundColorPicker.value;
+});
 
 let mouseDown = false;
-document.addEventListener('mousedown', () => {mouseDown = true});
-document.addEventListener('mouseup', () => {mouseDown = false});
+document.addEventListener("mousedown", () => {mouseDown = true});
+document.addEventListener("mouseup", () => {mouseDown = false});
 
-let backgroundColor = "green";
-let paintColor = "black";
 
 let randomColor = false;
-randomColorBtn.addEventListener('click', () => { randomColor = true });
+randomColorBtn.addEventListener("click", () => { randomColor = true });
 
-eraserBtn.addEventListener('click', activateEraser);
+eraserBtn.addEventListener("click", activateEraser);
 
 
 function activateEraser() {
@@ -47,7 +60,7 @@ function createGrid(size) {
     const square = document.createElement("div");
     square.classList.add("square");
     square.style.backgroundColor = backgroundColor;
-    square.addEventListener('mouseover', paintSquare);
+    square.addEventListener("mouseover", paintSquare);
     gridContainer.appendChild(square);
   }
 }
