@@ -14,7 +14,10 @@ paintColorPicker.addEventListener("input", () => {
 
 backgroundColorPicker.addEventListener("input", () => {
   randomColor = false;
-  backgroundColor = backgroundColorPicker.value;
+  const squares = document.querySelector(".square");
+  squares.forEach((square) => {
+    console.log(square.style.backgroundColor);
+  });
 });
 
 let mouseDown = false;
