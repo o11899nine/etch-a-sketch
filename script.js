@@ -7,23 +7,26 @@ const backgroundColorPicker = document.querySelector(".background-color-picker")
 let currentBGColor = backgroundColorPicker.value;
 let currentPaintColor = paintColorPicker.value;
 
+function rgbToHex(rgb) {
+  return `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`;
+}
+
 paintColorPicker.addEventListener("input", () => {
   randomColor = false;
   currentPaintColor = paintColorPicker.value;
 });
 
 backgroundColorPicker.addEventListener("input", () => {
-  randomColor = false;
   const newBGColor = backgroundColorPicker.value;
   console.log(`currentBGColor: ${currentBGColor}`);
   console.log(`newBGColor: ${newBGColor}`);
 
   const squares = document.querySelectorAll(".square");
   squares.forEach((square) => {
-    console.log(`squareColor: ${square.style.backgroundColor}`);
-    // if (square.style.backgroundColor === currentBGColor) {
-    //   square.style.backgroundColor = newBGColor;
-    // }
+    const squareBGColor = rgbToHex(square.style.backgroundColor);
+    if (squareBGColor === currentBGColor) {
+      square.style.backgroundColor = newBGColor;
+    }
   });
 
   currentBGColor = newBGColor;
