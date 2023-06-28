@@ -1,5 +1,15 @@
 const gridContainer = document.querySelector(".grid-container");
 
+let mouseDown = false;
+
+document.addEventListener('mousedown', () => {
+  mouseDown = true;
+})
+
+document.addEventListener('mouseup', () => {
+  mouseDown = false;
+})
+
 function createGrid(size) {
   gridContainer.style.gridTemplate = `repeat(${size}, 1fr) / repeat(${size}, 1fr)`;
   for (let i = 0; i < size * size; i++) {
@@ -13,8 +23,9 @@ function createGrid(size) {
 let paintColor = "black";
 
 function paintSquare(e) {
-  console.log(this);
-  e.target.style.backgroundColor = "black";
+  if (mouseDown) {
+    e.target.style.backgroundColor = "black";
+  }
 }
 
 createGrid(50);
