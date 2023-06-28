@@ -1,15 +1,20 @@
 const backgroundColorPicker = document.querySelector(".background-color-picker");
+const clearBtn = document.querySelector(".clear-btn");
 const eraserBtn = document.querySelector(".eraser-btn");
 const gridContainer = document.querySelector(".grid-container");
 const paintColorPicker = document.querySelector(".paint-color-picker");
 const randomColorBtn = document.querySelector(".random-color-btn");
-const clearBtn = document.querySelector(".clear-btn");
+const slider = document.querySelector(".slider");
+const sliderValueDiv = document.querySelector(".slider-value")
+
+const allSquares = () => document.querySelectorAll(".square");
 
 backgroundColorPicker.addEventListener("input", changeBackgroundColor);
+clearBtn.addEventListener("click", clearCanvas);
 eraserBtn.addEventListener("click", activateEraser);
 paintColorPicker.addEventListener("input", changePaintColor);
 randomColorBtn.addEventListener("click", () => { randomColor = true });
-clearBtn.addEventListener("click", clearCanvas);
+slider.addEventListener("input", resizeGrid);
 
 let currentBGColor = backgroundColorPicker.value;
 let currentPaintColor = paintColorPicker.value;
@@ -21,7 +26,8 @@ document.addEventListener("mouseup", () => { mouseDown = false });
 
 // Helper functions
 function rgbToHex(rgb) {
-  return `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`;
+  return `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map
+    (n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`;
 }
 
 function getRandomHexColor() {
@@ -31,8 +37,6 @@ function getRandomHexColor() {
 
 
 // Main functions
-const allSquares = () => document.querySelectorAll(".square");
-
 function clearCanvas() {
   allSquares().forEach((square) => {
       square.style.backgroundColor = currentBGColor;
@@ -75,7 +79,9 @@ function paintSquare(event) {
 }
 
 function createGrid(size) {
-  gridContainer.style.gridTemplate = `repeat(${size}, 1fr) / repeat(${size}, 1fr)`;
+  sliderValueDiv.textContent = `${size} x ${size}`;
+  gridContainer.innerHTML = "";
+  gridContainer.style.gridTemplate =`repeat(${size}, 1fr) / repeat(${size}, 1fr)`;
 
   for (let i = 0; i < size * size; i++) {
     const square = document.createElement("div");
@@ -85,6 +91,10 @@ function createGrid(size) {
     square.addEventListener("mouseover", paintSquare);
     gridContainer.appendChild(square);
   }
+
+  
 }
 
-createGrid(20);
+function resizeGrid() { createGrid(this.value) }
+
+createGrid(32);
