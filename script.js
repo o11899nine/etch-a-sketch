@@ -13,12 +13,17 @@ document.addEventListener('mouseup', () => {
   mouseDown = false;
 });
 
-function randInt(number) {
-  return Math.floor(Math.random() * number);
+
+function randIntBetween(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function randomColor() {
-  return `rgb(${randInt(255)}, ${randInt(255)}, ${randInt(255)})`;
+  return `rgb(
+    ${randIntBetween(0, 255)}, 
+    ${randIntBetween(0, 255)}, 
+    ${randIntBetween(0, 255)}
+    )`;
 }
 
 randomColorBtn.addEventListener('click', () => {
