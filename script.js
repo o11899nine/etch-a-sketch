@@ -2,38 +2,33 @@ const gridContainer = document.querySelector(".grid-container");
 const randomColorBtn = document.querySelector(".random-color-btn")
 
 let mouseDown = false;
+document.addEventListener('mousedown', () => {mouseDown = true});
+document.addEventListener('mouseup', () => {mouseDown = false});
+
+let randomColor = false;
+randomColorBtn.addEventListener('click', () => {randomColor = true});
+
 let selectedColor = "rgb(0,0,0)";
-let randomizer = false;
-
-document.addEventListener('mousedown', () => {
-  mouseDown = true;
-});
-
-document.addEventListener('mouseup', () => {
-  mouseDown = false;
-});
 
 
 function randIntBetween(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function randomColor() {
+function getRandomColor() {
   return `rgb(
     ${randIntBetween(0, 255)}, 
     ${randIntBetween(0, 255)}, 
     ${randIntBetween(0, 255)}
     )`;
-}
+  }
+  
 
-randomColorBtn.addEventListener('click', () => {
-  randomizer = true;
-});
 
 function paintSquare(e) {
   if (mouseDown) {
-    if (randomizer) {
-      e.target.style.backgroundColor = randomColor();
+    if (randomColor) {
+      e.target.style.backgroundColor = getRandomColor();
     } else {
       e.target.style.backgroundColor = selectedColor;
     }
