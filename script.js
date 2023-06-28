@@ -1,4 +1,5 @@
 const backgroundColorPicker = document.querySelector(".background-color-picker");
+const brushBtn = document.querySelector(".brush-btn");
 const brushSlider = document.querySelector(".brush-slider");
 const brushSliderValueDiv = document.querySelector(".brush-slider-value")
 const clearBtn = document.querySelector(".clear-btn");
@@ -10,7 +11,8 @@ const randomColorBtn = document.querySelector(".random-color-btn");
 const allSquares = () => document.querySelectorAll(".square");
 
 backgroundColorPicker.addEventListener("input", changeBackgroundColor);
-brushSlider.addEventListener("input", resizeGrid);
+brushBtn.addEventListener("click", () => { currentPaintColor = paintColorPicker.value });
+brushSlider.addEventListener("input", setBrushSize);
 clearBtn.addEventListener("click", clearCanvas);
 eraserBtn.addEventListener("click", activateEraser);
 paintColorPicker.addEventListener("input", changePaintColor);
@@ -38,6 +40,7 @@ function getRandomHexColor() {
 
 // Main functions
 function clearCanvas() {
+  currentPaintColor = paintColorPicker.value;
   allSquares().forEach((square) => {
       square.style.backgroundColor = currentBGColor;
   });
@@ -54,6 +57,7 @@ function changePaintColor() {
 }
 
 function changeBackgroundColor() {
+  currentPaintColor = paintColorPicker.value;
   const newBGColor = this.value;
 
   allSquares().forEach((square) => {
@@ -79,9 +83,10 @@ function paintSquare(event) {
 }
 
 function createGrid(brushSize) {
+  currentPaintColor = paintColorPicker.value;
   gridContainer.innerHTML = "";
   const gridSize = 101 - brushSize;
-  brushSliderValueDiv.textContent = `Brush size: ${brushSize}`;
+  brushSliderValueDiv.textContent = `Brush size: ${Math.floor(brushSize / 10) + 1}`;
   gridContainer.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
 
   for (let i = 0; i < gridSize * gridSize; i++) {
@@ -96,6 +101,6 @@ function createGrid(brushSize) {
   
 }
 
-function resizeGrid() { createGrid(this.value) }
+function setBrushSize() { createGrid(this.value) }
 
-createGrid(32);
+createGrid(brushSlider.value);
