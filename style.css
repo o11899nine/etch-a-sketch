@@ -37,6 +37,7 @@ body {
 
 }
 
-.grid-item {
+.square {
   background-color: white;
+  user-select: none;
 }
