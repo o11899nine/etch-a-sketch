@@ -38,7 +38,10 @@ document.addEventListener("mouseup", () => { mouseDown = false });
 // Helper functions
 function rgbToHex(rgb) {
   const [, r, g, b] = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-  return `#${parseInt(r, 10).toString(16).padStart(2, '0')}${parseInt(g, 10).toString(16).padStart(2, '0')}${parseInt(b, 10).toString(16).padStart(2, '0')}`;
+  return `#` +
+    `${parseInt(r, 10).toString(16).padStart(2, '0')}` +
+    `${parseInt(g, 10).toString(16).padStart(2, '0')}` +
+    `${ parseInt(b, 10).toString(16).padStart(2, '0')}`;
 }
 
 function getRandomHexColor() {
@@ -104,6 +107,7 @@ function changeBackgroundColor() {
   
   allSquares().forEach((square) => {
     const squareColor = rgbToHex(square.style.backgroundColor);
+    console.log(squareColor);
     if (squareColor === currentBGColor) {
       square.style.backgroundColor = newBGColor;
     }
