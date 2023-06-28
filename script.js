@@ -37,8 +37,8 @@ document.addEventListener("mouseup", () => { mouseDown = false });
 
 // Helper functions
 function rgbToHex(rgb) {
-  return `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map
-    (n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`;
+  const [, r, g, b] = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+  return `#${parseInt(r, 10).toString(16).padStart(2, '0')}${parseInt(g, 10).toString(16).padStart(2, '0')}${parseInt(b, 10).toString(16).padStart(2, '0')}`;
 }
 
 function getRandomHexColor() {
