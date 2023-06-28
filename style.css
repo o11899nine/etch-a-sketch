@@ -15,16 +15,6 @@
 body {
   background-color: aquamarine;
 }
-/* .grid-container {
-  border: 2px solid red;
-  background-color: blue;
-  height: 500px;
-  width: 500px;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  
-} */
 
 .grid-container {
   height: 900px;
@@ -32,8 +22,7 @@ body {
   display: grid;
   grid-template: repeat(16, 1fr) / repeat(16, 1fr);
   background-color: rgb(212, 212, 212);
-  gap: 1px;
-  padding: 1px;
+
 
 }
 

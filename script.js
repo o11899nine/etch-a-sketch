@@ -1,20 +1,20 @@
 const backgroundColorPicker = document.querySelector(".background-color-picker");
+const brushSlider = document.querySelector(".brush-slider");
+const brushSliderValueDiv = document.querySelector(".brush-slider-value")
 const clearBtn = document.querySelector(".clear-btn");
 const eraserBtn = document.querySelector(".eraser-btn");
 const gridContainer = document.querySelector(".grid-container");
 const paintColorPicker = document.querySelector(".paint-color-picker");
 const randomColorBtn = document.querySelector(".random-color-btn");
-const slider = document.querySelector(".slider");
-const sliderValueDiv = document.querySelector(".slider-value")
 
 const allSquares = () => document.querySelectorAll(".square");
 
 backgroundColorPicker.addEventListener("input", changeBackgroundColor);
+brushSlider.addEventListener("input", resizeGrid);
 clearBtn.addEventListener("click", clearCanvas);
 eraserBtn.addEventListener("click", activateEraser);
 paintColorPicker.addEventListener("input", changePaintColor);
 randomColorBtn.addEventListener("click", () => { randomColor = true });
-slider.addEventListener("input", resizeGrid);
 
 let currentBGColor = backgroundColorPicker.value;
 let currentPaintColor = paintColorPicker.value;
@@ -78,12 +78,13 @@ function paintSquare(event) {
 
 }
 
-function createGrid(size) {
-  sliderValueDiv.textContent = `${size} x ${size}`;
+function createGrid(brushSize) {
   gridContainer.innerHTML = "";
-  gridContainer.style.gridTemplate =`repeat(${size}, 1fr) / repeat(${size}, 1fr)`;
+  const gridSize = 101 - brushSize;
+  brushSliderValueDiv.textContent = `Brush size: ${brushSize}`;
+  gridContainer.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
 
-  for (let i = 0; i < size * size; i++) {
+  for (let i = 0; i < gridSize * gridSize; i++) {
     const square = document.createElement("div");
     square.classList.add("square");
     square.style.backgroundColor = currentBGColor;

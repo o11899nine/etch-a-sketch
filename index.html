@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Etch-a-Sketch</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-</head>
-<body>
-  <button class="clear-btn">Clear canvas</button>
-  <button class="random-color-btn">Random colors</button>
-  <button class="eraser-btn">Eraser</button>
-  <input type="color" class="color-picker paint-color-picker" value="#000000">
-  <input type="color" class="color-picker background-color-picker" value="#ffffff">
-  <div class="slider-value"></div>
-  <div class="slider-container">
-  <input type="range" min="2" max="100" value="32" class="slider">
-</div>
-  <div class="grid-container"></div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-a-Sketch</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <button class="clear-btn">Clear canvas</button>
+    <button class="random-color-btn">Random colors</button>
+    <button class="eraser-btn">Eraser</button>
+    <input type="color" class="color-picker paint-color-picker" value="#000000">
+    <input type="color" class="color-picker background-color-picker"
+      value="#ffffff">
+    <div class="brush-slider-value"></div>
+    <div class="brush-slider-container">
+      <input type="range" min="1" max="100" value="32" class="brush-slider">
+    </div>
+
+    <div class="grid-container"></div>
+  </body>
 </html>
