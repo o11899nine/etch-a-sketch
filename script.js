@@ -16,11 +16,10 @@ paintColorPicker.addEventListener("input", () => {
   currentPaintColor = paintColorPicker.value;
 });
 
-backgroundColorPicker.addEventListener("input", () => {
-  const newBGColor = backgroundColorPicker.value;
-  console.log(`currentBGColor: ${currentBGColor}`);
-  console.log(`newBGColor: ${newBGColor}`);
+backgroundColorPicker.addEventListener("input", changeBackgroundColor);
 
+function changeBackgroundColor() {
+  const newBGColor = this.value;
   const squares = document.querySelectorAll(".square");
   squares.forEach((square) => {
     const squareBGColor = rgbToHex(square.style.backgroundColor);
@@ -28,9 +27,9 @@ backgroundColorPicker.addEventListener("input", () => {
       square.style.backgroundColor = newBGColor;
     }
   });
+}
 
-  currentBGColor = newBGColor;
-});
+
 
 let mouseDown = false;
 document.addEventListener("mousedown", () => { mouseDown = true });
@@ -60,10 +59,10 @@ function paintSquare(event) {
   if (randomColor) { currentPaintColor = getRandomColor(); }
   if (event.type === "mouseover") {
     if (mouseDown) {
-      event.target.style.backgroundColor = currentPaintColor;
+      this.style.backgroundColor = currentPaintColor;
     }
   } else {
-    event.target.style.backgroundColor = currentPaintColor;
+    this.style.backgroundColor = currentPaintColor;
   }
 
 }
