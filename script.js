@@ -9,4 +9,19 @@ function createGrid(size) {
   }
 }
 
-createGrid(32);
+
+let paintColor = "black";
+
+function paintSquare(e) {
+  console.log(this);
+  e.target.style.backgroundColor = "black";
+}
+
+createGrid(50);
+
+
+
+const squares = document.querySelectorAll(".grid-item");
+squares.forEach((square) => {
+  square.addEventListener('mouseover', paintSquare);
+});
