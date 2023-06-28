@@ -8,19 +8,33 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <button class="btn clear-btn">Clear canvas</button>
-    <button class="btn random-color-btn">Random colors</button>
-    <button class="btn eraser-btn">Eraser</button>
-    <button class="btn brush-btn">Brush</button>
-    <input type="color" class="color-picker paint-color-picker" value="#000000">
-    <input type="color" class="color-picker background-color-picker"
-      value="#ffffff">
-    <div class="brush-slider-value"></div>
-    <div class="brush-slider-container">
-      <input type="range" min="1" max="91" value="71" step="10" class="brush-slider">
-    </div>
-    <input type="color" class="color-picker recolor-color-picker" value="#000000">
+    <div class="temp-container" style="display:flex; gap: 50px;">
 
-    <div class="grid-container"></div>
+      <div class="temp-buttons"> 
+        <button class="btn clear-btn">Clear canvas</button>
+        <button class="btn random-color-btn">Random colors</button>
+        <button class="btn eraser-btn">Eraser</button>
+        <button class="btn brush-btn">Brush</button>
+        <label for="paint-color-picker"><p>Paint color</p></label>
+        <input type="color" class="color-picker" id="paint-color-picker"
+          value="#000000">
+        <label for="background-color-picker"><p>Background color</p></label>
+        <input type="color" class="color-picker" id="background-color-picker"
+          value="#ffffff">
+        <div class="brush-slider-value"></div>
+        <div class="brush-slider-container">
+          <input type="range" min="1" max="91" value="71" step="10"
+            class="brush-slider">
+        </div>
+        <label for="recolor-color-picker"><p>Recolor color</p></label>
+        <input type="color" class="color-picker" id="recolor-color-picker"
+          value="#000000"></div>
+
+      <div class="temp-canvas">
+        <div class="grid-container"></div>
+      </div>
+
+    </div>
+
   </body>
 </html>

@@ -1,13 +1,13 @@
-const backgroundColorPicker = document.querySelector(".background-color-picker");
+const backgroundColorPicker = document.getElementById("background-color-picker");
 const brushBtn = document.querySelector(".brush-btn");
 const brushSlider = document.querySelector(".brush-slider");
 const brushSliderValueDiv = document.querySelector(".brush-slider-value")
 const clearBtn = document.querySelector(".clear-btn");
 const eraserBtn = document.querySelector(".eraser-btn");
 const gridContainer = document.querySelector(".grid-container");
-const paintColorPicker = document.querySelector(".paint-color-picker");
+const paintColorPicker = document.getElementById("paint-color-picker");
 const randomColorBtn = document.querySelector(".random-color-btn");
-const recolorColorPicker = document.querySelector(".recolor-color-picker");
+const recolorColorPicker = document.getElementById("recolor-color-picker");
 
 const allSquares = () => document.querySelectorAll(".square");
 
@@ -130,7 +130,7 @@ function createGrid(brushSize) {
   currentPaintColor = paintColorPicker.value;
   gridContainer.innerHTML = "";
   const gridSize = 101 - brushSize;
-  brushSliderValueDiv.textContent = `Brush size: ${Math.floor(brushSize / 10) + 1}`;
+  brushSliderValueDiv.innerHTML = `<p>Brush size: ${Math.floor(brushSize / 10) + 1}</p>`;
   gridContainer.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
 
   for (let i = 0; i < gridSize * gridSize; i++) {
