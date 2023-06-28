@@ -14,7 +14,8 @@ const allSquares = () => document.querySelectorAll(".square");
 backgroundColorPicker.addEventListener("input", changeBackgroundColor);
 brushBtn.addEventListener("click", () => {
   currentPaintColor = paintColorPicker.value;
-  selectBrush();
+  randomColor = false;
+  deselectRecolor();
 });
 brushSlider.addEventListener("input", setBrushSize);
 clearBtn.addEventListener("click", clearCanvas);
@@ -22,7 +23,7 @@ eraserBtn.addEventListener("click", activateEraser);
 paintColorPicker.addEventListener("input", changePaintColor);
 randomColorBtn.addEventListener("click", () => {
   randomColor = true;
-  selectBrush
+  deselectRecolor();
 });
 recolorColorPicker.addEventListener("input", activateRecolor);
 
@@ -48,7 +49,7 @@ function getRandomHexColor() {
 
 // Main functions
 
-function selectBrush() {
+function deselectRecolor() {
   allSquares().forEach((square) => {
     square.removeEventListener("click", recolorSquares);
     square.addEventListener("click", paintSquare);
@@ -62,15 +63,15 @@ function clearCanvas() {
   allSquares().forEach((square) => {
     square.style.backgroundColor = currentBGColor;
   });
-  selectBrush();
+  deselectRecolor();
   currentPaintColor = paintColorPicker.value;
 }
 
 function recolorSquares() {
-  const clickedSquareBGColor = rgbToHex(this.style.backgroundColor);
+  const clickedSquareColor = rgbToHex(this.style.backgroundColor);
   allSquares().forEach((square) => {
-    const squareBGColor = rgbToHex(square.style.backgroundColor);
-    if (squareBGColor === clickedSquareBGColor && squareBGColor !== currentBGColor) {
+    const squareColor = rgbToHex(square.style.backgroundColor);
+    if (squareColor === clickedSquareColor && squareColor !== currentBGColor) {
       square.style.backgroundColor = currentPaintColor;
     }
   });
@@ -89,28 +90,28 @@ function activateRecolor() {
 function activateEraser() {
   randomColor = false;
   currentPaintColor = currentBGColor;
-  selectBrush();
+  deselectRecolor();
 }
 
 function changePaintColor() {
   randomColor = false;
   currentPaintColor = this.value;
-  selectBrush();
+  deselectRecolor();
 }
 
 function changeBackgroundColor() {
   const newBGColor = this.value;
   
   allSquares().forEach((square) => {
-    const squareBGColor = rgbToHex(square.style.backgroundColor);
-    if (squareBGColor === currentBGColor) {
+    const squareColor = rgbToHex(square.style.backgroundColor);
+    if (squareColor === currentBGColor) {
       square.style.backgroundColor = newBGColor;
     }
   });
   
   currentBGColor = newBGColor;
   currentPaintColor = paintColorPicker.value;
-  selectBrush();
+  deselectRecolor();
 }
 
 function paintSquare(event) {
