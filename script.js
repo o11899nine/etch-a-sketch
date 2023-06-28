@@ -4,12 +4,12 @@ const eraserBtn = document.querySelector(".eraser-btn");
 const paintColorPicker = document.querySelector(".paint-color-picker");
 const backgroundColorPicker = document.querySelector(".background-color-picker");
 
-let backgroundColor = backgroundColorPicker.value;
-let paintColor = paintColorPicker.value;
+let selectedBGColor = backgroundColorPicker.value;
+let selectedPaintColor = paintColorPicker.value;
 
 paintColorPicker.addEventListener("input", () => {
   randomColor = false;
-  paintColor = paintColorPicker.value;
+  selectedPaintColor = paintColorPicker.value;
 });
 
 backgroundColorPicker.addEventListener("input", () => {
@@ -32,7 +32,7 @@ eraserBtn.addEventListener("click", activateEraser);
 
 
 function activateEraser() {
-  paintColor = backgroundColor;
+  selectedPaintColor = selectedBGColor;
   randomColor = false;
 }
 
@@ -50,11 +50,16 @@ function getRandomColor() {
   
 
 
-function paintSquare(e) {
-  if (mouseDown) {
-    if (randomColor) {paintColor = getRandomColor();} 
-    e.target.style.backgroundColor = paintColor;
+function paintSquare(event) {
+  if (randomColor) {selectedPaintColor = getRandomColor();} 
+  if (event.type === "mouseover") {
+    if (mouseDown) {
+      event.target.style.backgroundColor = selectedPaintColor;
+    }
+  } else {
+    event.target.style.backgroundColor = selectedPaintColor;
   }
+
 }
 
 function createGrid(size) {
@@ -62,7 +67,8 @@ function createGrid(size) {
   for (let i = 0; i < size * size; i++) {
     const square = document.createElement("div");
     square.classList.add("square");
-    square.style.backgroundColor = backgroundColor;
+    square.style.backgroundColor = selectedBGColor;
+    square.addEventListener("click", paintSquare);
     square.addEventListener("mouseover", paintSquare);
     gridContainer.appendChild(square);
   }
@@ -72,4 +78,4 @@ function createGrid(size) {
 
 
 
-createGrid(50);
+createGrid(16);
