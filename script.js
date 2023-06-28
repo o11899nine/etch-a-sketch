@@ -7,16 +7,24 @@ const eraserBtn = document.querySelector(".eraser-btn");
 const gridContainer = document.querySelector(".grid-container");
 const paintColorPicker = document.querySelector(".paint-color-picker");
 const randomColorBtn = document.querySelector(".random-color-btn");
+const recolorColorPicker = document.querySelector(".recolor-color-picker");
 
 const allSquares = () => document.querySelectorAll(".square");
 
 backgroundColorPicker.addEventListener("input", changeBackgroundColor);
-brushBtn.addEventListener("click", () => { currentPaintColor = paintColorPicker.value });
+brushBtn.addEventListener("click", () => {
+  currentPaintColor = paintColorPicker.value;
+  selectBrush();
+});
 brushSlider.addEventListener("input", setBrushSize);
 clearBtn.addEventListener("click", clearCanvas);
 eraserBtn.addEventListener("click", activateEraser);
 paintColorPicker.addEventListener("input", changePaintColor);
-randomColorBtn.addEventListener("click", () => { randomColor = true });
+randomColorBtn.addEventListener("click", () => {
+  randomColor = true;
+  selectBrush
+});
+recolorColorPicker.addEventListener("input", activateRecolor);
 
 let currentBGColor = backgroundColorPicker.value;
 let currentPaintColor = paintColorPicker.value;
@@ -39,27 +47,60 @@ function getRandomHexColor() {
 
 
 // Main functions
-function clearCanvas() {
-  currentPaintColor = paintColorPicker.value;
+
+function selectBrush() {
   allSquares().forEach((square) => {
-      square.style.backgroundColor = currentBGColor;
+    square.removeEventListener("click", recolorSquares);
+    square.addEventListener("click", paintSquare);
+    square.addEventListener("mouseover", paintSquare);
+  });
+}
+
+
+
+function clearCanvas() {
+  allSquares().forEach((square) => {
+    square.style.backgroundColor = currentBGColor;
+  });
+  selectBrush();
+  currentPaintColor = paintColorPicker.value;
+}
+
+function recolorSquares() {
+  const clickedSquareBGColor = rgbToHex(this.style.backgroundColor);
+  allSquares().forEach((square) => {
+    const squareBGColor = rgbToHex(square.style.backgroundColor);
+    if (squareBGColor === clickedSquareBGColor && squareBGColor !== currentBGColor) {
+      square.style.backgroundColor = currentPaintColor;
+    }
+  });
+}
+
+function activateRecolor() {
+
+  currentPaintColor = this.value;
+  allSquares().forEach((square) => {
+    square.removeEventListener("click", paintSquare);
+    square.removeEventListener("mouseover", paintSquare);
+    square.addEventListener("click", recolorSquares);
   });
 }
 
 function activateEraser() {
   randomColor = false;
   currentPaintColor = currentBGColor;
+  selectBrush();
 }
 
 function changePaintColor() {
   randomColor = false;
   currentPaintColor = this.value;
+  selectBrush();
 }
 
 function changeBackgroundColor() {
-  currentPaintColor = paintColorPicker.value;
   const newBGColor = this.value;
-
+  
   allSquares().forEach((square) => {
     const squareBGColor = rgbToHex(square.style.backgroundColor);
     if (squareBGColor === currentBGColor) {
@@ -68,6 +109,8 @@ function changeBackgroundColor() {
   });
   
   currentBGColor = newBGColor;
+  currentPaintColor = paintColorPicker.value;
+  selectBrush();
 }
 
 function paintSquare(event) {
@@ -98,7 +141,7 @@ function createGrid(brushSize) {
     gridContainer.appendChild(square);
   }
 
-  
+
 }
 
 function setBrushSize() { createGrid(this.value) }

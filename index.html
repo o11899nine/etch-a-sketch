@@ -8,10 +8,10 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <button class="clear-btn">Clear canvas</button>
-    <button class="random-color-btn">Random colors</button>
-    <button class="eraser-btn">Eraser</button>
-    <button class="brush-btn">Brush</button>
+    <button class="btn clear-btn">Clear canvas</button>
+    <button class="btn random-color-btn">Random colors</button>
+    <button class="btn eraser-btn">Eraser</button>
+    <button class="btn brush-btn">Brush</button>
     <input type="color" class="color-picker paint-color-picker" value="#000000">
     <input type="color" class="color-picker background-color-picker"
       value="#ffffff">
@@ -19,6 +19,7 @@
     <div class="brush-slider-container">
       <input type="range" min="1" max="91" value="71" step="10" class="brush-slider">
     </div>
+    <input type="color" class="color-picker recolor-color-picker" value="#000000">
 
     <div class="grid-container"></div>
   </body>
