@@ -25,6 +25,7 @@ body {
   display: grid;
   grid-template: repeat(16, 1fr) / repeat(16, 1fr);
   background-color: rgb(212, 212, 212);
+  cursor: url("img/pencil_cursor.cur"), auto;
 
 
 }
