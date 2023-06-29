@@ -15,6 +15,7 @@
         <button class="btn random-color-btn" data-mode="random">Random colors</button>
         <button class="btn eraser-btn" data-mode="erase">Eraser</button>
         <button class="btn pencil-btn" data-mode="draw">Pencil</button>
+        <button class="btn recolor-btn" data-mode="recolor">Recolor</button>
         
         <label for="paint-color-picker"><p>Paint color</p></label>
         <input type="color" class="color-picker" data-mode="draw"
@@ -30,11 +31,6 @@
           <input type="range" min="1" max="91" value="71" step="10"
             class="pencil-slider" data-mode="draw">
         </div>
-        
-        <label for="recolor-color-picker"><p>Recolor color</p></label>
-        <input type="color" class="color-picker" data-mode="recolor"
-          id="recolor-color-picker"
-          value="#000000"></div>
 
       <div class="temp-canvas">
         <div class="canvas"></div>
