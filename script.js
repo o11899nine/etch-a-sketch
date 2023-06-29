@@ -12,19 +12,20 @@ const recolorColorPicker = document.getElementById("recolor-color-picker");
 const allSquares = () => document.querySelectorAll(".square");
 
 
+
 bgColorPicker.addEventListener("input", changeBackgroundColor);
-pencilBtn.addEventListener("click", setMode);
 pencilSlider.addEventListener("input", setPencilSize);
+pencilBtn.addEventListener("click", setMode);
 clearBtn.addEventListener("click", clearCanvas);
 eraserBtn.addEventListener("click", setMode);
-paintColorPicker.addEventListener("input", changePaintColor);
+paintColorPicker.addEventListener("input", setMode);
 randomColorBtn.addEventListener("click", setMode);
 recolorColorPicker.addEventListener("input", setMode);
 
-let currentBGColor = bgColorPicker.value;
-let currPaintColor = paintColorPicker.value;
+let bgColor = bgColorPicker.value;
+let paintColor = paintColorPicker.value;
 let mouseDown = false;
-let randomColor = false;
+let randomPaintColor = false;
 
 document.addEventListener("mousedown", () => { mouseDown = true });
 document.addEventListener("mouseup", () => { mouseDown = false });
@@ -36,7 +37,7 @@ function rgbToHex(rgb) {
     `${parseInt(r, 10).toString(16).padStart(2, '0')}` +
     `${parseInt(g, 10).toString(16).padStart(2, '0')}` +
     `${parseInt(b, 10).toString(16).padStart(2, '0')}`;
-}
+};
 
 function getRandomHexColor() {
   const hexColor = Math.floor(Math.random() * 16777215).toString(16);
@@ -45,8 +46,11 @@ function getRandomHexColor() {
 
 
 // Main functions
+function changeCursor(mode) {
+  canvas.style.cursor = `url("cursors/${mode}_cursor.cur"), auto`
+}
 
-function SwitchSquaresEventListeners(mode) {
+function setModeEventListeners(mode) {
   if (["draw", "erase", "random"].includes(mode)) {
     allSquares().forEach((square) => {
       square.removeEventListener("click", recolorSquares);
@@ -62,48 +66,46 @@ function SwitchSquaresEventListeners(mode) {
   }
 }
 
+function setPaintColor(mode) {
+  if (mode === "draw") {
+    paintColor = paintColorPicker.value;
+    randomPaintColor = false;
+  }
+  else if (mode === "recolor") {
+    paintColor = recolorColorPicker.value;
+    randomPaintColor = false;
+  }
+  else if (mode === "erase") {
+    paintColor = bgColor;
+    randomPaintColor = false;
+  }
+  else if (mode === "random") {
+    paintColor = paintColorPicker.value;
+    randomPaintColor = true;
+  }
+}
+
 function setMode() {
   const mode = this.dataset.mode;
-  SwitchSquaresEventListeners(mode);
-  canvas.style.cursor = `url("cursors/${mode}_cursor.cur"), auto`;
+  setModeEventListeners(mode);
+  changeCursor(mode);
+  setPaintColor(mode);
 }
 
 
 
 function clearCanvas() {
-  allSquares().forEach((square) => {
-    square.style.backgroundColor = currentBGColor;
-  });
-  setMode();
-  currPaintColor = paintColorPicker.value;
+  allSquares().forEach((square) => {square.style.backgroundColor = bgColor;});
 }
 
 function recolorSquares() {
   const clickedSquareColor = rgbToHex(this.style.backgroundColor);
   allSquares().forEach((square) => {
     const squareColor = rgbToHex(square.style.backgroundColor);
-    if (squareColor === clickedSquareColor && squareColor !== currentBGColor) {
-      square.style.backgroundColor = currPaintColor;
+    if (squareColor === clickedSquareColor && squareColor !== bgColor) {
+      square.style.backgroundColor = paintColor;
     }
   });
-}
-
-function activateRecolor() {
-
-  currPaintColor = this.value;
-
-}
-
-function activateEraser() {
-  randomColor = false;
-  currPaintColor = currentBGColor;
-  setMode();
-}
-
-function changePaintColor() {
-  randomColor = false;
-  currPaintColor = this.value;
-  setMode();
 }
 
 function changeBackgroundColor() {
@@ -112,32 +114,32 @@ function changeBackgroundColor() {
   allSquares().forEach((square) => {
     const squareColor = rgbToHex(square.style.backgroundColor);
     console.log(squareColor);
-    if (squareColor === currentBGColor) {
+    if (squareColor === bgColor) {
       square.style.backgroundColor = newBGColor;
     }
   });
 
-  currentBGColor = newBGColor;
-  currPaintColor = paintColorPicker.value;
+  bgColor = newBGColor;
+  paintColor = paintColorPicker.value;
   setMode();
 }
 
 function paintSquare(event) {
-  if (randomColor) {
-    currPaintColor = getRandomHexColor();
+  if (randomPaintColor) {
+    paintColor = getRandomHexColor();
   }
   if (event.type === "mouseover") {
     if (mouseDown) {
-      this.style.backgroundColor = currPaintColor;
+      this.style.backgroundColor = paintColor;
     }
   } else {
-    this.style.backgroundColor = currPaintColor;
+    this.style.backgroundColor = paintColor;
   }
 
 }
 
 function createGrid(pencilSize) {
-  currPaintColor = paintColorPicker.value;
+  paintColor = paintColorPicker.value;
   canvas.innerHTML = "";
   const gridSize = 101 - pencilSize;
   pencilSliderValueDiv.innerHTML = `<p>Pencil size: ${Math.floor(pencilSize / 10) + 1}</p>`;
@@ -146,7 +148,7 @@ function createGrid(pencilSize) {
   for (let i = 0; i < gridSize * gridSize; i++) {
     const square = document.createElement("div");
     square.classList.add("square");
-    square.style.backgroundColor = currentBGColor;
+    square.style.backgroundColor = bgColor;
     square.addEventListener("click", paintSquare);
     square.addEventListener("mouseover", paintSquare);
     canvas.appendChild(square);
