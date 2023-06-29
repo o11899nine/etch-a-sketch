@@ -149,6 +149,12 @@ function createGrid(brushSize) {
 
 }
 
-function setBrushSize() { createGrid(this.value) }
+function setBrushSize() {
+  if (1 <= brushSlider.value <= 91) {
+    createGrid(brushSlider.value)
+  } else {
+    createGrid(71);
+  }
+}
 
-createGrid(brushSlider.value);
+setBrushSize();
