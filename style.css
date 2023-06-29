@@ -19,13 +19,12 @@ body {
   background-color: aquamarine;
 }
 
-.grid-container {
+.canvas {
   height: 900px;
   width: 900px;
   display: grid;
   grid-template: repeat(16, 1fr) / repeat(16, 1fr);
   background-color: rgb(212, 212, 212);
-  cursor: url("img/pencil_cursor.cur"), auto;
 
 
 }

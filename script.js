@@ -1,35 +1,28 @@
-const backgroundColorPicker = document.getElementById("background-color-picker");
+const bgColorPicker = document.getElementById("background-color-picker");
+const canvas = document.querySelector(".canvas");
+const clearBtn = document.querySelector(".clear-btn");
+const eraserBtn = document.querySelector(".eraser-btn");
+const paintColorPicker = document.getElementById("paint-color-picker");
 const pencilBtn = document.querySelector(".pencil-btn");
 const pencilSlider = document.querySelector(".pencil-slider");
 const pencilSliderValueDiv = document.querySelector(".pencil-slider-value")
-const clearBtn = document.querySelector(".clear-btn");
-const eraserBtn = document.querySelector(".eraser-btn");
-const gridContainer = document.querySelector(".grid-container");
-const paintColorPicker = document.getElementById("paint-color-picker");
 const randomColorBtn = document.querySelector(".random-color-btn");
 const recolorColorPicker = document.getElementById("recolor-color-picker");
 
 const allSquares = () => document.querySelectorAll(".square");
 
-backgroundColorPicker.addEventListener("input", changeBackgroundColor);
-pencilBtn.addEventListener("click", () => {
-  gridContainer.style.cursor = "url('img/pencil_cursor.cur'), auto";
-  currentPaintColor = paintColorPicker.value;
-  randomColor = false;
-  deselectRecolor();
-});
+
+bgColorPicker.addEventListener("input", changeBackgroundColor);
+pencilBtn.addEventListener("click", setMode);
 pencilSlider.addEventListener("input", setPencilSize);
 clearBtn.addEventListener("click", clearCanvas);
-eraserBtn.addEventListener("click", activateEraser);
+eraserBtn.addEventListener("click", setMode);
 paintColorPicker.addEventListener("input", changePaintColor);
-randomColorBtn.addEventListener("click", () => {
-  randomColor = true;
-  deselectRecolor();
-});
-recolorColorPicker.addEventListener("input", activateRecolor);
+randomColorBtn.addEventListener("click", setMode);
+recolorColorPicker.addEventListener("input", setMode);
 
-let currentBGColor = backgroundColorPicker.value;
-let currentPaintColor = paintColorPicker.value;
+let currentBGColor = bgColorPicker.value;
+let currPaintColor = paintColorPicker.value;
 let mouseDown = false;
 let randomColor = false;
 
@@ -42,7 +35,7 @@ function rgbToHex(rgb) {
   return `#` +
     `${parseInt(r, 10).toString(16).padStart(2, '0')}` +
     `${parseInt(g, 10).toString(16).padStart(2, '0')}` +
-    `${ parseInt(b, 10).toString(16).padStart(2, '0')}`;
+    `${parseInt(b, 10).toString(16).padStart(2, '0')}`;
 }
 
 function getRandomHexColor() {
@@ -53,12 +46,26 @@ function getRandomHexColor() {
 
 // Main functions
 
-function deselectRecolor() {
-  allSquares().forEach((square) => {
-    square.removeEventListener("click", recolorSquares);
-    square.addEventListener("click", paintSquare);
-    square.addEventListener("mouseover", paintSquare);
-  });
+function SwitchSquaresEventListeners(mode) {
+  if (["draw", "erase", "random"].includes(mode)) {
+    allSquares().forEach((square) => {
+      square.removeEventListener("click", recolorSquares);
+      square.addEventListener("click", paintSquare);
+      square.addEventListener("mouseover", paintSquare);
+    });
+  } else if (mode === "recolor") {
+    allSquares().forEach((square) => {
+      square.addEventListener("click", recolorSquares);
+      square.removeEventListener("click", paintSquare);
+      square.removeEventListener("mouseover", paintSquare);
+    });
+  }
+}
+
+function setMode() {
+  const mode = this.dataset.mode;
+  SwitchSquaresEventListeners(mode);
+  canvas.style.cursor = `url("cursors/${mode}_cursor.cur"), auto`;
 }
 
 
@@ -67,9 +74,8 @@ function clearCanvas() {
   allSquares().forEach((square) => {
     square.style.backgroundColor = currentBGColor;
   });
-  deselectRecolor();
-  currentPaintColor = paintColorPicker.value;
-  gridContainer.style.cursor = "url('img/pencil_cursor.cur'), auto";
+  setMode();
+  currPaintColor = paintColorPicker.value;
 }
 
 function recolorSquares() {
@@ -77,39 +83,32 @@ function recolorSquares() {
   allSquares().forEach((square) => {
     const squareColor = rgbToHex(square.style.backgroundColor);
     if (squareColor === clickedSquareColor && squareColor !== currentBGColor) {
-      square.style.backgroundColor = currentPaintColor;
+      square.style.backgroundColor = currPaintColor;
     }
   });
 }
 
 function activateRecolor() {
 
-  currentPaintColor = this.value;
-  allSquares().forEach((square) => {
-    square.removeEventListener("click", paintSquare);
-    square.removeEventListener("mouseover", paintSquare);
-    square.addEventListener("click", recolorSquares);
-  });
-  gridContainer.style.cursor = "url('img/pencil_cursor.cur'), auto";
+  currPaintColor = this.value;
+
 }
 
 function activateEraser() {
   randomColor = false;
-  currentPaintColor = currentBGColor;
-  gridContainer.style.cursor = "url('img/eraser_cursor.cur'), auto";
-  deselectRecolor();
+  currPaintColor = currentBGColor;
+  setMode();
 }
 
 function changePaintColor() {
   randomColor = false;
-  currentPaintColor = this.value;
-  gridContainer.style.cursor = "url('img/pencil_cursor.cur'), auto";
-  deselectRecolor();
+  currPaintColor = this.value;
+  setMode();
 }
 
 function changeBackgroundColor() {
   const newBGColor = this.value;
-  
+
   allSquares().forEach((square) => {
     const squareColor = rgbToHex(square.style.backgroundColor);
     console.log(squareColor);
@@ -117,33 +116,32 @@ function changeBackgroundColor() {
       square.style.backgroundColor = newBGColor;
     }
   });
-  
+
   currentBGColor = newBGColor;
-  currentPaintColor = paintColorPicker.value;
-  deselectRecolor();
+  currPaintColor = paintColorPicker.value;
+  setMode();
 }
 
 function paintSquare(event) {
   if (randomColor) {
-    currentPaintColor = getRandomHexColor();
-    gridContainer.style.cursor = "url('img/rainbow_cursor.cur'), auto";
+    currPaintColor = getRandomHexColor();
   }
   if (event.type === "mouseover") {
     if (mouseDown) {
-      this.style.backgroundColor = currentPaintColor;
+      this.style.backgroundColor = currPaintColor;
     }
   } else {
-    this.style.backgroundColor = currentPaintColor;
+    this.style.backgroundColor = currPaintColor;
   }
 
 }
 
 function createGrid(pencilSize) {
-  currentPaintColor = paintColorPicker.value;
-  gridContainer.innerHTML = "";
+  currPaintColor = paintColorPicker.value;
+  canvas.innerHTML = "";
   const gridSize = 101 - pencilSize;
   pencilSliderValueDiv.innerHTML = `<p>Pencil size: ${Math.floor(pencilSize / 10) + 1}</p>`;
-  gridContainer.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
+  canvas.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
 
   for (let i = 0; i < gridSize * gridSize; i++) {
     const square = document.createElement("div");
@@ -151,7 +149,7 @@ function createGrid(pencilSize) {
     square.style.backgroundColor = currentBGColor;
     square.addEventListener("click", paintSquare);
     square.addEventListener("mouseover", paintSquare);
-    gridContainer.appendChild(square);
+    canvas.appendChild(square);
   }
 
 
