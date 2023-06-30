@@ -1,4 +1,4 @@
-const bgColorPicker = document.getElementById("background-color-picker");
+const bgColorPicker = document.getElementById("bg-color-picker");
 const canvas = document.querySelector(".canvas");
 const clearBtn = document.querySelector(".clear-btn");
 const eraserBtn = document.querySelector(".eraser-btn");
@@ -11,25 +11,25 @@ const recolorBtn = document.querySelector(".recolor-btn");
 
 const allSquares = () => document.querySelectorAll(".square");
 
-
-
-bgColorPicker.addEventListener("input", changeBackgroundColor);
-pencilSlider.addEventListener("input", setPencilSize);
-pencilBtn.addEventListener("click", setMode);
-clearBtn.addEventListener("click", clearCanvas);
-eraserBtn.addEventListener("click", setMode);
-paintColorPicker.addEventListener("input", setMode);
-randomColorBtn.addEventListener("click", setMode);
-recolorBtn.addEventListener("click", setMode);
-
 let mode = "draw";
 let bgColor = bgColorPicker.value;
 let paintColor = paintColorPicker.value;
 let mouseDown = false;
 let randomPaintColor = false;
 
-document.addEventListener("mousedown", () => { mouseDown = true });
-document.addEventListener("mouseup", () => { mouseDown = false });
+bgColorPicker.addEventListener("input", changeBackgroundColor);
+clearBtn.addEventListener("click", clearCanvas);
+eraserBtn.addEventListener("click", setMode);
+paintColorPicker.addEventListener("input", setMode);
+pencilBtn.addEventListener("click", setMode);
+pencilSlider.addEventListener("input", setPencilSize);
+randomColorBtn.addEventListener("click", setMode);
+recolorBtn.addEventListener("click", setMode);
+
+/* To avoid accidental drawing by hovering, the mousedown state is checked */
+/* This state is checked in the paintSquare() function */
+canvas.addEventListener("mousedown", () => { mouseDown = true });
+canvas.addEventListener("mouseup", () => { mouseDown = false });
 
 // Helper functions
 function rgbToHex(rgb) {
@@ -78,12 +78,17 @@ function setPaintColor(mode) {
     paintColor = paintColorPicker.value;
     randomPaintColor = true;
   }
+  else if (mode !== "erase") {
+    paintColor = paintColorPicker.value;
+  }
 }
 
 function setMode() {
-  mode = this.dataset.mode;
-  setModeEventListeners(mode);
-  setCursor(mode);
+  if (this.dataset.mode) {
+    mode = this.dataset.mode;
+    setModeEventListeners(mode);
+    setCursor(mode);
+  }
   setPaintColor(mode);
 }
 
@@ -153,8 +158,9 @@ function setPencilSize() {
   if (1 <= pencilSlider.value <= 91) {
     createGrid(pencilSlider.value)
   } else {
-    createGrid(71);
+    createGrid(41);
   }
 }
 
-createGrid(71);
+createGrid(41);
+setCursor("draw");
