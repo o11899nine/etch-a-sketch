@@ -8,34 +8,23 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <div class="temp-container" style="display:flex; gap: 50px;">
 
-      <div class="temp-buttons">
-        <button class="btn clear-btn">Clear canvas</button>
-        <button class="btn random-color-btn" data-mode="random">Random colors</button>
-        <button class="btn eraser-btn" data-mode="erase">Eraser</button>
-        <button class="btn pencil-btn" data-mode="draw">Pencil</button>
-        <button class="btn recolor-btn" data-mode="recolor">Recolor</button>
-        
-        <label for="paint-color-picker"><p>Paint color</p></label>
-        <input type="color" class="color-picker" id="paint-color-picker"
-          value="#000000">
+    <button class="btn clear-btn">Clear canvas</button>
+    <button class="btn random-color-btn" data-mode="random">Random colors</button>
+    <button class="btn eraser-btn" data-mode="erase">Eraser</button>
+    <button class="btn pencil-btn" data-mode="draw">Pencil</button>
+    <button class="btn recolor-btn" data-mode="recolor">Recolor</button>
 
-        <label for="bg-color-picker"><p>Background color</p></label>
-        <input type="color" class="color-picker" id="bg-color-picker"
-          value="#ffffff">
+    <label for="paint-color-picker"><p>Paint color</p></label>
+    <input type="color" id="paint-color-picker" class="color-picker" value="#000000">
 
-        <p class="pencil-slider-text"></p>
-        <div class="pencil-slider-container">
-          <input type="range" min="1" max="91" value="41" step="10"
-            class="pencil-slider" data-mode="draw">
-        </div>
+    <label for="bg-color-picker"><p>Background color</p></label>
+    <input type="color" id="bg-color-picker" class="color-picker" value="#ffffff">
 
-      <div class="temp-canvas">
-        <div class="canvas"></div>
-      </div>
+    <label for="pencil-size-slider"><p class="pencil-slider-text"></p></label>
+    <input type="range" id="pencil-size-slider" class="slider" value="41" min="1" max="91" step="10">
 
-    </div>
+    <div class="canvas"></div>
 
   </body>
 </html>
