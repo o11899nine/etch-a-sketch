@@ -11,10 +11,10 @@ const recolorBtn = document.querySelector(".recolor-btn");
 
 const allSquares = () => document.querySelectorAll(".square");
 
-let mode = "draw";
 let bgColor = bgColorPicker.value;
+let mode = "draw";
+let mouseIsDown = false;
 let paintColor = paintColorPicker.value;
-let mouseDown = false;
 let randomPaintColor = false;
 
 bgColorPicker.addEventListener("input", changeBackgroundColor);
@@ -28,10 +28,9 @@ recolorBtn.addEventListener("click", setMode);
 
 /* To avoid accidental drawing by hovering, the mousedown state is checked */
 /* This state is checked in the paintSquare() function */
-canvas.addEventListener("mousedown", () => { mouseDown = true });
-canvas.addEventListener("mouseup", () => { mouseDown = false });
+canvas.addEventListener("mousedown", () => { mouseIsDown = true });
+canvas.addEventListener("mouseup", () => { mouseIsDown = false });
 
-// Helper functions
 function rgbToHex(rgb) {
   const [, r, g, b] = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/);
   return `#` +
@@ -45,18 +44,18 @@ function getRandomHexColor() {
   return `#${hexColor}`;
 }
 
+function setCursor() {
+  canvas.style.cursor = `url("cursors/${mode}.cur"), auto`
+}
 
-// Main functions
-function setCursor(mode) {canvas.style.cursor = `url("cursors/${mode}.cur"), auto`}
-
-function setModeEventListeners(mode) {
+function setModeEventListeners() {
   if (["draw", "erase", "random"].includes(mode)) {
     allSquares().forEach((square) => {
       square.removeEventListener("click", recolorSquares);
       square.addEventListener("click", paintSquare);
       square.addEventListener("mouseover", paintSquare);
     });
-  } else if (mode === "recolor") {
+  } else if (["recolor"].includes(mode)) {
     allSquares().forEach((square) => {
       square.addEventListener("click", recolorSquares);
       square.removeEventListener("click", paintSquare);
@@ -65,7 +64,7 @@ function setModeEventListeners(mode) {
   }
 }
 
-function setPaintColor(mode) {
+function setPaintColor() {
   if (mode === "draw" || mode === "recolor") {
     paintColor = paintColorPicker.value;
     randomPaintColor = false;
@@ -86,20 +85,19 @@ function setPaintColor(mode) {
 function setMode() {
   if (this.dataset.mode) {
     mode = this.dataset.mode;
-    setModeEventListeners(mode);
-    setCursor(mode);
+    setModeEventListeners();
+    setCursor();
   }
-  setPaintColor(mode);
+  setPaintColor();
 }
 
-
-
 function clearCanvas() {
-  allSquares().forEach((square) => {square.style.backgroundColor = bgColor;});
+  allSquares().forEach((square) => { square.style.backgroundColor = bgColor; });
 }
 
 function recolorSquares() {
   const clickedSquareColor = rgbToHex(this.style.backgroundColor);
+
   allSquares().forEach((square) => {
     const squareColor = rgbToHex(square.style.backgroundColor);
     if (squareColor === clickedSquareColor && squareColor !== bgColor) {
@@ -119,48 +117,44 @@ function changeBackgroundColor() {
   });
 
   bgColor = newBGColor;
-  if (mode === "erase") { paintColor = bgColor };
+  setPaintColor();
 }
 
 function paintSquare(event) {
-  if (randomPaintColor) {
-    paintColor = getRandomHexColor();
-  }
-  if (event.type === "mouseover") {
-    if (mouseDown) {
-      this.style.backgroundColor = paintColor;
-    }
-  } else {
+  if (randomPaintColor) {paintColor = getRandomHexColor()}
+  
+  if (event.type === "click" || event.type === "mouseover" && mouseIsDown) {
     this.style.backgroundColor = paintColor;
   }
-
 }
 
 function createGrid(pencilSize) {
   canvas.innerHTML = "";
   const gridSize = 101 - pencilSize;
-  pencilSliderValueDiv.innerHTML = `<p>Pencil size: ${Math.floor(pencilSize / 10) + 1}</p>`;
-  canvas.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
+
+  canvas.style.gridTemplate =
+    `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
 
   for (let i = 0; i < gridSize * gridSize; i++) {
     const square = document.createElement("div");
-    square.classList.add("square");
     square.style.backgroundColor = bgColor;
-    square.addEventListener("click", paintSquare);
-    square.addEventListener("mouseover", paintSquare);
+    square.classList.add("square");
     canvas.appendChild(square);
   }
+
+  setModeEventListeners(mode);
 
 
 }
 
 function setPencilSize() {
-  if (1 <= pencilSlider.value <= 91) {
-    createGrid(pencilSlider.value)
-  } else {
-    createGrid(41);
-  }
+  let pencilSize = pencilSlider.value;
+  pencilSliderValueDiv.innerHTML =
+    `<p>Pencil size: ${Math.floor(pencilSize / 10) + 1}</p>`;
+  
+  if (91 < pencilSize < 1) { pencilSize = 41 };
+  createGrid(pencilSize);
 }
 
-createGrid(41);
-setCursor("draw");
+setPencilSize();
+setCursor();
