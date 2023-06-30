@@ -5,7 +5,7 @@ const eraserBtn = document.querySelector(".eraser-btn");
 const paintColorPicker = document.getElementById("paint-color-picker");
 const pencilBtn = document.querySelector(".pencil-btn");
 const pencilSlider = document.querySelector(".pencil-slider");
-const pencilSliderValueDiv = document.querySelector(".pencil-slider-value")
+const pencilSliderText = document.querySelector(".pencil-slider-text")
 const randomColorBtn = document.querySelector(".random-color-btn");
 const recolorBtn = document.querySelector(".recolor-btn");
 
@@ -48,7 +48,7 @@ function setCursor() {
   canvas.style.cursor = `url("cursors/${mode}.cur"), auto`
 }
 
-function setModeEventListeners() {
+function setCanvasEventListeners() {
   if (["draw", "erase", "random"].includes(mode)) {
     allSquares().forEach((square) => {
       square.removeEventListener("click", recolorSquares);
@@ -85,7 +85,7 @@ function setPaintColor() {
 function setMode() {
   if (this.dataset.mode) {
     mode = this.dataset.mode;
-    setModeEventListeners();
+    setCanvasEventListeners();
     setCursor();
   }
   setPaintColor();
@@ -117,7 +117,7 @@ function changeBackgroundColor() {
   });
 
   bgColor = newBGColor;
-  setPaintColor();
+  if (mode === "erase") { setPaintColor() }
 }
 
 function paintSquare(event) {
@@ -129,9 +129,9 @@ function paintSquare(event) {
 }
 
 function createGrid(pencilSize) {
-  canvas.innerHTML = "";
   const gridSize = 101 - pencilSize;
 
+  canvas.innerHTML = "";
   canvas.style.gridTemplate =
     `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
 
@@ -142,17 +142,15 @@ function createGrid(pencilSize) {
     canvas.appendChild(square);
   }
 
-  setModeEventListeners(mode);
-
-
+  setCanvasEventListeners(mode);
 }
 
 function setPencilSize() {
   let pencilSize = pencilSlider.value;
-  pencilSliderValueDiv.innerHTML =
-    `<p>Pencil size: ${Math.floor(pencilSize / 10) + 1}</p>`;
+  if (pencilSize < 1 || pencilSize > 91) { pencilSize = 41 };
+
+  pencilSliderText.innerHTML =`Pencil size: ${Math.floor(pencilSize / 10) + 1}`;
   
-  if (91 < pencilSize < 1) { pencilSize = 41 };
   createGrid(pencilSize);
 }
 
