@@ -94,8 +94,7 @@ function toggleToolBtn() {
     button.classList.remove("active");
   });
   const clickedBtn = document.querySelector(`.${mode}-btn`);
-  console.log(mode);
-  clickedBtn.classList.add("active");
+  clickedBtn.classList.toggle("active");
   
 }
 
