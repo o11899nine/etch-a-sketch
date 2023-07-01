@@ -22,10 +22,10 @@ body {
 }
 
 .window-container {
-  height: 100vh;
-  width: 100vw;
+  /* height: 100vh;
+  width: 100vw; */
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 }
 
@@ -46,6 +46,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  user-select: none;
 }
 
 .header-left {
@@ -85,30 +86,44 @@ body {
   margin-top: 5px;
   margin-left: 10px;
   gap: 10px;
+  user-select: none;
 }
 
 
 .main-container {
   display: flex;
+  padding: 10px;
   justify-content: space-between;
 }
 
 /* TOOLBAR */
 .toolbar {
-  height: 600px;
-  background-color: white;
-  width: 100px;
-  margin-left: 10px;
+  display: grid;
+  grid-template-columns: auto auto;
+  row-gap: 2px;
+  column-gap: 2px;
   background-color: lightgrey;
+}
+
+.tool-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: #BDBDBD;
+  box-shadow: inset 2px 2px 0px #F9F9F9, 2px 2px 0px black;
+}
+
+.tool-btn.active {
+  background-color: #E1E1E1;
+  box-shadow: inset 1px 1px 1px black, 1px 1px 0px #919191;
 }
 
 
 .canvas {
-  height: 650px;
-  width: 650px;
+  width: 670px;
+  height: 670px;
   display: grid;
   background-color: lightgrey;
-  margin-right: 10px;
 }
 
 .canvas.grid {
