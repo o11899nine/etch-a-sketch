@@ -2,6 +2,7 @@ const bgColorPicker = document.getElementById("bg-color-picker");
 const canvas = document.querySelector(".canvas");
 const clearBtn = document.querySelector(".clear-btn");
 const eraserBtn = document.querySelector(".eraser-btn");
+const gridCheckbox = document.querySelector(".grid-checkbox");
 const paintColorPicker = document.getElementById("paint-color-picker");
 const pencilBtn = document.querySelector(".pencil-btn");
 const pencilSlider = document.getElementById("pencil-size-slider");
@@ -20,6 +21,7 @@ let randomPaintColor = false;
 bgColorPicker.addEventListener("input", changeBackgroundColor);
 clearBtn.addEventListener("click", clearCanvas);
 eraserBtn.addEventListener("click", setMode);
+gridCheckbox.addEventListener("click", toggleGrid);
 paintColorPicker.addEventListener("input", setMode);
 pencilBtn.addEventListener("click", setMode);
 pencilSlider.addEventListener("input", setPencilSize);
@@ -62,6 +64,10 @@ function setCanvasEventListeners() {
       square.removeEventListener("mouseover", paintSquare);
     });
   }
+}
+
+function toggleGrid() {
+  canvas.classList.toggle("grid");
 }
 
 function setPaintColor() {

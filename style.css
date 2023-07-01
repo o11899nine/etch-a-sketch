@@ -23,6 +23,11 @@ body {
   height: 600px;
   width: 600px;
   display: grid;
+  background-color: lightgray;
+}
+
+.canvas.grid {
+  gap: 1px;
 }
 
 .btn {
