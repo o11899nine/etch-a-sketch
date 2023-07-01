@@ -115,7 +115,7 @@ body {
 
 .tool-btn.active {
   background-color: #E1E1E1;
-  box-shadow: inset 1px 1px 1px black, 1px 1px 0px #919191;
+  box-shadow: inset 1px 1px 1px black, 2px 2px 0px #919191;
 }
 
 

@@ -1,16 +1,17 @@
 const bgColorPicker = document.getElementById("bg-color-picker");
 const canvas = document.querySelector(".canvas");
 const clearBtn = document.querySelector(".clear-btn");
-const eraserBtn = document.querySelector(".eraser-btn");
+const eraseBtn = document.querySelector(".erase-btn");
 const gridCheckbox = document.querySelector(".grid-checkbox");
 const paintColorPicker = document.getElementById("paint-color-picker");
-const pencilBtn = document.querySelector(".pencil-btn");
+const drawnBtn = document.querySelector(".draw-btn");
 const pencilSlider = document.getElementById("pencil-size-slider");
 const pencilSliderText = document.querySelector(".pencil-slider-text")
-const randomColorBtn = document.querySelector(".random-color-btn");
+const randomBtn = document.querySelector(".random-btn");
 const recolorBtn = document.querySelector(".recolor-btn");
 
 const allSquares = () => document.querySelectorAll(".square");
+const allToolBtns = () => document.querySelectorAll(".tool-btn");
 
 let bgColor = bgColorPicker.value;
 let mode = "draw";
@@ -20,12 +21,12 @@ let randomPaintColor = false;
 
 bgColorPicker.addEventListener("input", changeBackgroundColor);
 clearBtn.addEventListener("click", clearCanvas);
-eraserBtn.addEventListener("click", setMode);
+eraseBtn.addEventListener("click", setMode);
 gridCheckbox.addEventListener("click", toggleGrid);
 paintColorPicker.addEventListener("input", setMode);
-pencilBtn.addEventListener("click", setMode);
+drawnBtn.addEventListener("click", setMode);
 pencilSlider.addEventListener("input", setPencilSize);
-randomColorBtn.addEventListener("click", setMode);
+randomBtn.addEventListener("click", setMode);
 recolorBtn.addEventListener("click", setMode);
 
 /* To avoid accidental drawing by hovering, the mousedown state is checked */
@@ -88,11 +89,22 @@ function setPaintColor() {
   }
 }
 
+function toggleToolBtn() {
+  allToolBtns().forEach((button) => {
+    button.classList.remove("active");
+  });
+  const clickedBtn = document.querySelector(`.${mode}-btn`);
+  console.log(mode);
+  clickedBtn.classList.add("active");
+  
+}
+
 function setMode() {
   if (this.dataset.mode) {
     mode = this.dataset.mode;
     setCanvasEventListeners();
     setCursor();
+    toggleToolBtn();
   }
   setPaintColor();
 }
