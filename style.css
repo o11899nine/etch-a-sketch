@@ -25,8 +25,8 @@ body {
   height: 100vh;
   width: 100vw;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  /* align-items: center; */
 }
 
 .window {
@@ -111,14 +111,15 @@ body {
   justify-content: space-between;
 }
 
+
 /* TOOLBAR */
 .toolbar {
   display: grid;
   padding-top: 5px;
   width: 80px;
-  height: 80px;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 40px);
+  grid-template-rows: repeat(2, 40px);
+  
 }
 
 .tool-btn {
@@ -141,7 +142,27 @@ body {
   width: 20px;
 }
 
+.color-picker {
+  width: 40px;
+  height: 40px;
+}
 
+/* OPTIONS */
+.options {
+  margin-top: 40px;
+}
+
+.color-pickers {
+  display: flex;
+}
+
+.color-picker:hover {
+  background-color: #E1E1E1;
+}
+
+.color-picker:active {
+  background-color: #E1E1E1;
+}
 
 .canvas {
   width: 670px;
@@ -158,10 +179,6 @@ body {
 .btn {
   font-size: 3rem;
   padding: 5px;
-}
-
-.color-picker {
-  height: 50px;
 }
 
 .square {
