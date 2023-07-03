@@ -37,8 +37,8 @@ body {
   box-shadow: 0px 0px 20px black;
 }
 
-/* HEADER */
-.header {
+/* TITLEBAR */
+.titlebar {
   height: 35px;
   width: 100%;
   background-color: #02007F;
@@ -49,29 +49,30 @@ body {
   user-select: none;
 }
 
-.header-left {
+.titlebar-left {
   display: flex;
   align-items: center;
 }
 
-.header-icon {
-  height: 28px;
-  width: 28px;
-  background-color: white;
+.titlebar-icon {
+  height: 25px;
+  width: 25px;
+  background-image: url("img/titlebar_logo.png");
+  background-size: cover;
   margin-right: 5px;
 }
 
-.header-filename {
+.titlebar-filename {
   color: white;
   font-weight: 600;
   font-size: 1.6rem;
 }
 
-.header-right {
+.titlebar-right {
   display: flex;
 }
 
-.header-btn {
+.titlebar-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -104,30 +105,39 @@ body {
 /* TOOLBAR */
 .toolbar {
   display: grid;
-  grid-template-columns: auto auto;
-  row-gap: 2px;
-  column-gap: 2px;
-  background-color: lightgrey;
+  width: 80px;
+  height: 80px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  /* row-gap: 1px;
+  column-gap: 1px; */
 }
 
 .tool-btn {
-  width: 40px;
-  height: 40px;
   border: none;
   background-color: #BDBDBD;
   border-right: 2px solid black;
   border-bottom: 2px solid black;
   border-left: 2px solid #F9F9F9;
   border-top: 2px solid #F9F9F9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .tool-btn.active {
   background-color: #E1E1E1;
-  border-right: 2px solid #919191;
-  border-bottom: 2px solid #919191;
+  border-right: 2px solid #F9F9F9;
+  border-bottom: 2px solid #F9F9F9;
   border-left: 2px solid black;
   border-top: 2px solid black;
 }
+
+.tool-icon {
+  height: 20px;
+  width: 20px;
+}
+
 
 
 .canvas {
@@ -135,7 +145,7 @@ body {
   height: 670px;
   display: grid;
   background-color: lightgrey;
-  border: 1px solid black;
+  border: 2px solid black;
 }
 
 .canvas.grid {
