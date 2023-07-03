@@ -39,11 +39,23 @@ body {
   border-top: 2px solid #cfcfcf;
 }
 
-.popup-button {
+.popup-btn {
   border-right: 2px solid black;
   border-bottom: 2px solid black;
   border-left: 2px solid #F9F9F9;
   border-top: 2px solid #F9F9F9;
+}
+
+.popup-btn:hover {
+  background-color:#E1E1E1;
+}
+
+.popup-btn:active {
+  background-color: #E1E1E1;
+    border-right: 2px solid #F9F9F9;
+      border-bottom: 2px solid #F9F9F9;
+      border-left: 2px solid black;
+      border-top: 2px solid black;
 }
 
 /* TITLEBAR */
@@ -162,6 +174,14 @@ body {
 
 .color-picker:active {
   background-color: #E1E1E1;
+}
+
+.clear-btn {
+  width: 80px;
+  margin-top: 40px;
+  height: 40px;
+  font-size: 1.6rem;
+  font-weight: bold;
 }
 
 .canvas {

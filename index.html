@@ -19,9 +19,9 @@
           </div>
 
           <div class="titlebar-right">
-            <div class="titlebar-btn popup-button minimize">🗕</div>
-            <div class="titlebar-btn popup-button maximize">🗖</div>
-            <div class="titlebar-btn popup-button close">✖</div>
+            <div class="titlebar-btn popup-btn minimize">🗕</div>
+            <div class="titlebar-btn popup-btn maximize">🗖</div>
+            <div class="titlebar-btn popup-btn close">✖</div>
           </div>
         </div>
 
@@ -42,10 +42,10 @@
             <!-- TOOLBAR -->
             <div class="toolbar">
               
-              <button class="tool-btn popup-button random-btn" data-mode="random"><img class="tool-icon" src="img/random-icon.png"></button>
-              <button class="tool-btn popup-button erase-btn" data-mode="erase"><img class="tool-icon" src="img/erase-icon.png"></button>
-              <button class="tool-btn popup-button draw-btn active" data-mode="draw"><img class="tool-icon" src="img/draw-icon.png"></button>
-              <button class="tool-btn popup-button recolor-btn" data-mode="recolor"><img class="tool-icon" src="img/recolor-icon.png"></button>
+              <button class="tool-btn popup-btn random-btn" data-mode="random"><img class="tool-icon" src="img/random-icon.png"></button>
+              <button class="tool-btn popup-btn erase-btn" data-mode="erase"><img class="tool-icon" src="img/erase-icon.png"></button>
+              <button class="tool-btn popup-btn draw-btn active" data-mode="draw"><img class="tool-icon" src="img/draw-icon.png"></button>
+              <button class="tool-btn popup-btn recolor-btn" data-mode="recolor"><img class="tool-icon" src="img/recolor-icon.png"></button>
 
             </div>
 
@@ -54,10 +54,12 @@
             <!-- OPTIONS -->
             <div class="options">
               <div class="color-pickers">
-                <input type="color" id="paint-color-picker" class="tool-btn popup-button color-picker" value="#000000">
-                <input type="color" id="bg-color-picker" class="tool-btn popup-button color-picker" value="#ffffff">
+                <input type="color" id="paint-color-picker" class="tool-btn popup-btn color-picker" value="#000000">
+                <input type="color" id="bg-color-picker" class="tool-btn popup-btn color-picker" value="#ffffff">
               </div>
-              <button class="clear-btn">Clear canvas</button>
+
+              <button class="clear-btn tool-btn popup-btn">CLEAR</button>
+              
               <input type="checkbox" class="checkbox grid-checkbox">Grid</button>
 
 
