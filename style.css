@@ -53,6 +53,7 @@ body {
   display: flex;
   align-items: center;
 }
+
 .header-icon {
   height: 28px;
   width: 28px;
@@ -114,12 +115,18 @@ body {
   height: 40px;
   border: none;
   background-color: #BDBDBD;
-  box-shadow: inset 2px 2px 0px #F9F9F9, 2px 2px 0px black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 2px solid #F9F9F9;
+  border-top: 2px solid #F9F9F9;
 }
 
 .tool-btn.active {
   background-color: #E1E1E1;
-  box-shadow: inset 1px 1px 1px black, 2px 2px 0px #919191;
+  border-right: 2px solid #919191;
+  border-bottom: 2px solid #919191;
+  border-left: 2px solid black;
+  border-top: 2px solid black;
 }
 
 
@@ -128,6 +135,7 @@ body {
   height: 670px;
   display: grid;
   background-color: lightgrey;
+  border: 1px solid black;
 }
 
 .canvas.grid {
