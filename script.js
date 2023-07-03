@@ -166,7 +166,7 @@ function setPencilSize() {
   let pencilSize = pencilSlider.value;
   if (pencilSize < 1 || pencilSize > 91) { pencilSize = 41 };
 
-  pencilSliderText.innerHTML =`Pencil size: ${Math.floor(pencilSize / 10) + 1}`;
+  pencilSliderText.innerHTML =`Pen size: ${Math.floor(pencilSize / 10) + 1}`;
   
   createGrid(pencilSize);
 }
