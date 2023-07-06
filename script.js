@@ -48,7 +48,7 @@ function getRandomHexColor() {
 }
 
 function setCursor() {
-  canvas.style.cursor = `url("cursors/${mode}.cur"), auto`
+  canvas.style.cursor = `url("cursors/${mode}.png"), auto`
 }
 
 function setCanvasEventListeners() {
