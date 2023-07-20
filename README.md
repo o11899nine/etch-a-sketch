@@ -1,6 +1,7 @@
 # Etch-A-Sketch
 
-A project I created for the Odin Project. The goal was to make a drawing web application. I tried to recreate the MS Paint 95 look.
+A project I created for the Odin Project. The goal was to make a drawing web application. I tried to recreate the MS Paint 95 look.<br><br>
+[Live Demo](https://o11899nine.github.io/etch-a-sketch/) :point_left:
 
 ## Version 1.0
 
